@@ -6,37 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?? 'Dashboard' ?> - SPMB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            light: '#e0f2fe',
-                            DEFAULT: '#0ea5e9',
-                            dark: '#0369a1'
-                        },
-                        surface: {
-                            light: '#ffffff',
-                            dark: '#f8fafc'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .input-field { @apply w-full border border-slate-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-brand-light focus:border-brand outline-none transition-shadow text-slate-700 bg-slate-50 focus:bg-white; }
-            .btn-primary { @apply bg-brand text-white px-5 py-2.5 rounded-xl shadow-md hover:bg-brand-dark transition-all duration-200 focus:ring-4 focus:ring-brand-light outline-none font-medium flex justify-center items-center; }
-            .btn-secondary { @apply bg-slate-200 text-slate-700 px-5 py-2.5 rounded-xl hover:bg-slate-300 transition-all duration-200 font-medium flex justify-center items-center; }
-            .card { @apply bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden; }
-        }
-    </style>
+    <link rel="stylesheet" href="<?= base_url('css/app.css') ?>">
 </head>
 
 <body class="bg-surface-dark font-sans text-slate-800 antialiased min-h-screen flex flex-col md:flex-row">

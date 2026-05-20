@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $settings
+ */
+?>
 <?= $this->extend('layouts/admin_layout') ?>
 
 <?= $this->section('content') ?>
@@ -10,18 +15,18 @@
 
     <form action="<?= base_url('admin/pengaturan') ?>" method="POST" enctype="multipart/form-data">
         <?= csrf_field() ?>
-        <input type="hidden" name="id" value="<?= esc($settings['id'] ?? '') ?>">
+        <input type="hidden" name="id" value="<?= esc((string)($settings['id'] ?? '')) ?>">
 
         <div class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label class="block text-sm font-bold text-slate-700 mb-1">Nama Sekolah</label>
-                    <input type="text" name="nama_sekolah" class="input-field" value="<?= esc($settings['nama_sekolah'] ?? '') ?>" placeholder="Contoh: SMA Negeri 1 Nusantara" required>
+                    <input type="text" name="nama_sekolah" class="input-field" value="<?= esc((string)($settings['nama_sekolah'] ?? '')) ?>" placeholder="Contoh: SMA Negeri 1 Nusantara" required>
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">Tahun Pelajaran</label>
-                    <input type="text" name="tahun_pelajaran" class="input-field" value="<?= esc($settings['tahun_pelajaran'] ?? '') ?>" placeholder="Contoh: 2024/2025" required>
+                    <input type="text" name="tahun_pelajaran" class="input-field" value="<?= esc((string)($settings['tahun_pelajaran'] ?? '')) ?>" placeholder="Contoh: 2024/2025" required>
                 </div>
             </div>
 
@@ -35,11 +40,11 @@
                         <div class="flex flex-col items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
                             <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Logo Saat Ini</p>
                             <div class="w-28 h-28 rounded-xl overflow-hidden border-2 border-slate-200 bg-white flex items-center justify-center shadow-sm">
-                                <img src="<?= base_url('uploads/' . esc($settings['logo'])) ?>" alt="Logo Sekolah" class="max-w-full max-h-full object-contain">
+                                <img src="<?= base_url('uploads/' . esc((string)($settings['logo'] ?? ''))) ?>" alt="Logo Sekolah" class="max-w-full max-h-full object-contain">
                             </div>
                             <?php if (!empty($settings['favicon'])): ?>
                                 <div class="flex items-center gap-2 text-xs text-slate-500">
-                                    <img src="<?= base_url('uploads/' . esc($settings['favicon'])) ?>" alt="Favicon" class="w-4 h-4">
+                                    <img src="<?= base_url('uploads/' . esc((string)($settings['favicon'] ?? ''))) ?>" alt="Favicon" class="w-4 h-4">
                                     <span>Favicon (32×32px) auto-generated</span>
                                 </div>
                             <?php endif; ?>
@@ -101,11 +106,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-1">Tanggal Dibuka</label>
-                        <input type="date" name="tanggal_buka" class="input-field" value="<?= esc($settings['tanggal_buka'] ?? '') ?>" required>
+                        <input type="date" name="tanggal_buka" class="input-field" value="<?= esc((string)($settings['tanggal_buka'] ?? '')) ?>" required>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-1">Tanggal Ditutup</label>
-                        <input type="date" name="tanggal_tutup" class="input-field" value="<?= esc($settings['tanggal_tutup'] ?? '') ?>" required>
+                        <input type="date" name="tanggal_tutup" class="input-field" value="<?= esc((string)($settings['tanggal_tutup'] ?? '')) ?>" required>
                     </div>
                 </div>
             </div>

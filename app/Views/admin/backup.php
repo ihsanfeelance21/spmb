@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array<int, array<string, string>> $backups
+ */
+?>
 <?= $this->extend('layouts/admin_layout') ?>
 
 <?= $this->section('content') ?>
@@ -108,21 +113,21 @@
                 <?php else: ?>
                     <?php foreach ($backups as $row): ?>
                         <tr class="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-                            <td class="py-4 px-6 font-medium text-slate-800"><?= $row['name'] ?></td>
-                            <td class="py-4 px-6"><?= $row['date'] ?></td>
-                            <td class="py-4 px-6"><?= $row['size'] ?></td>
+                            <td class="py-4 px-6 font-medium text-slate-800"><?= esc((string)($row['name'] ?? '')) ?></td>
+                            <td class="py-4 px-6"><?= esc((string)($row['date'] ?? '')) ?></td>
+                            <td class="py-4 px-6"><?= esc((string)($row['size'] ?? '')) ?></td>
                             <td class="py-4 px-6">
                                 <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[12px] font-medium">
-                                    <?= $row['status'] ?>
+                                    <?= esc((string)($row['status'] ?? '')) ?>
                                 </span>
                             </td>
                             <td class="py-4 px-6 text-right flex justify-end gap-3">
-                                <a href="<?= base_url('admin/backup/download/' . $row['name']) ?>" class="text-slate-400 hover:text-[#0052cc] transition-colors" title="Download">
+                                <a href="<?= base_url('admin/backup/download/' . (string)($row['name'] ?? '')) ?>" class="text-slate-400 hover:text-[#0052cc] transition-colors" title="Download">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                     </svg>
                                 </a>
-                                <form action="<?= base_url('admin/backup/delete/' . $row['name']) ?>" method="POST" class="inline" onsubmit="return confirm('Hapus file backup ini?')">
+                                <form action="<?= base_url('admin/backup/delete/' . (string)($row['name'] ?? '')) ?>" method="POST" class="inline" onsubmit="return confirm('Hapus file backup ini?')">
                                     <?= csrf_field() ?>
                                     <button type="submit" class="text-slate-400 hover:text-red-500 transition-colors" title="Hapus">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

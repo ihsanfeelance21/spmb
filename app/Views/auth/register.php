@@ -1,9 +1,16 @@
+<?php
+/**
+ * @var array $pengaturan
+ */
+?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-    <title>Registrasi - <?= esc($settings['nama_sekolah'] ?? 'SPMB') ?></title>
+    <title>Registrasi - <?= esc((string)($pengaturan['nama_sekolah'] ?? 'SPMB')) ?></title>
     <?= $this->include('layouts/components/auth_head') ?>
 </head>
+
 <body class="font-sans antialiased bg-[#F8FAFC] text-[#1F2937]">
     <div class="min-h-screen flex flex-col lg:flex-row">
 
@@ -126,7 +133,7 @@
                                             <span class="font-semibold text-[#2D3FAF]">Pilih file</span> atau drag & drop
                                         </p>
                                         <p class="text-xs text-[#9CA3AF] mt-1">PNG, JPG, PDF (Maks. 2MB)</p>
-                                        <p id="file-name" class="text-sm font-semibold text-[#22C55E] mt-3 hidden flex items-center justify-center gap-1.5">
+                                        <p id="file-name" class="text-sm font-semibold text-[#22C55E] mt-3 hidden items-center justify-center gap-1.5">
                                             <i class="fa-solid fa-circle-check text-xs"></i>
                                             <span id="file-name-text"></span>
                                         </p>
@@ -143,7 +150,10 @@
                                 <button type="submit" id="submitBtn" class="relative w-full py-3.5 bg-[#1D2671] text-white font-semibold text-[15px] rounded-xl shadow-lg shadow-[#1D2671]/20 hover:shadow-xl hover:shadow-[#1D2671]/30 hover:bg-[#2D3FAF] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-250 flex justify-center items-center gap-2.5 overflow-hidden group">
                                     <span id="btnText" class="relative z-10">Daftar Sekarang</span>
                                     <i class="fa-solid fa-arrow-right relative z-10 text-sm group-hover:translate-x-0.5 transition-transform duration-200" id="btnArrow"></i>
-                                    <svg id="btnLoader" class="animate-spin h-5 w-5 text-white hidden relative z-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    <svg id="btnLoader" class="animate-spin h-5 w-5 text-white hidden relative z-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
                                     <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                                 </button>
                             </div>
@@ -156,7 +166,7 @@
                     </div>
                 </div>
                 <div class="mt-8 text-center">
-                    <p class="text-xs text-[#9CA3AF]">© <?= date('Y') ?> <?= esc($settings['nama_sekolah'] ?? 'SPMB') ?>. Seluruh hak cipta dilindungi.</p>
+                    <p class="text-xs text-[#9CA3AF]">© <?= date('Y') ?> <?= esc((string)($pengaturan['nama_sekolah'] ?? 'SPMB')) ?>. Seluruh hak cipta dilindungi.</p>
                 </div>
             </div>
         </div>
@@ -173,12 +183,14 @@
             document.getElementById('jenis_identitas').value = jenis;
 
             if (jenis === 'KTP') {
-                btnKTP.className = activeClass; btnKK.className = inactiveClass;
+                btnKTP.className = activeClass;
+                btnKK.className = inactiveClass;
                 document.getElementById('label_no_identitas').innerText = 'NISN (Nomor Induk Siswa Nasional)';
                 document.getElementById('no_identitas').placeholder = 'Masukkan 10 digit NISN';
                 document.getElementById('label_file_identitas').innerText = 'Upload Kartu Pelajar';
             } else {
-                btnKK.className = activeClass; btnKTP.className = inactiveClass;
+                btnKK.className = activeClass;
+                btnKTP.className = inactiveClass;
                 document.getElementById('label_no_identitas').innerText = 'NIK (Nomor Induk Kependudukan)';
                 document.getElementById('no_identitas').placeholder = 'Masukkan 16 digit NIK dari Kartu Keluarga';
                 document.getElementById('label_file_identitas').innerText = 'Upload Kartu Keluarga (KK)';
@@ -186,40 +198,57 @@
         }
 
         // ==================== File Upload Preview ====================
-        document.getElementById('file_identitas').addEventListener('change', function (e) {
+        document.getElementById('file_identitas').addEventListener('change', function(e) {
             const file = e.target.files[0];
             const display = document.getElementById('file-name');
             const nameText = document.getElementById('file-name-text');
-            if (file) { nameText.textContent = 'File terpilih: ' + file.name; display.classList.remove('hidden'); }
-            else { display.classList.add('hidden'); }
+            if (file) {
+                nameText.textContent = 'File terpilih: ' + file.name;
+                display.classList.remove('hidden');
+            } else {
+                display.classList.add('hidden');
+            }
         });
 
         // ==================== Password Toggle ====================
-        document.getElementById('togglePassword').addEventListener('click', function () {
-            const p = document.getElementById('password'), icon = document.getElementById('eyeIcon');
-            const isPass = p.type === 'password'; p.type = isPass ? 'text' : 'password';
-            icon.classList.toggle('fa-eye-slash', !isPass); icon.classList.toggle('fa-eye', isPass);
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const p = document.getElementById('password'),
+                icon = document.getElementById('eyeIcon');
+            const isPass = p.type === 'password';
+            p.type = isPass ? 'text' : 'password';
+            icon.classList.toggle('fa-eye-slash', !isPass);
+            icon.classList.toggle('fa-eye', isPass);
         });
 
         // ==================== Form Submit Loading ====================
-        document.getElementById('registerForm').addEventListener('submit', function () {
-            const btn = document.getElementById('submitBtn'); btn.disabled = true;
-            btn.classList.add('opacity-80', 'cursor-not-allowed'); btn.classList.remove('hover:-translate-y-0.5');
+        document.getElementById('registerForm').addEventListener('submit', function() {
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            btn.classList.remove('hover:-translate-y-0.5');
             document.getElementById('btnText').textContent = 'Memproses...';
             document.getElementById('btnArrow').classList.add('hidden');
             document.getElementById('btnLoader').classList.remove('hidden');
         });
 
         // ==================== Init Tab ====================
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             switchTab(document.getElementById('jenis_identitas').value || 'KTP');
         });
 
         // ==================== Auto-dismiss alerts ====================
-        setTimeout(function () {
+        setTimeout(function() {
             const el = document.getElementById('alertError');
-            if (el) { el.style.transition = 'opacity 0.4s ease, transform 0.4s ease'; el.style.opacity = '0'; el.style.transform = 'translateY(-8px)'; setTimeout(function () { el.remove(); }, 400); }
+            if (el) {
+                el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(-8px)';
+                setTimeout(function() {
+                    el.remove();
+                }, 400);
+            }
         }, 6000);
     </script>
 </body>
+
 </html>

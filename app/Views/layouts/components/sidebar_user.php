@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <aside id="sidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col fixed md:sticky top-0 h-screen z-30 transition-transform transform -translate-x-full md:translate-x-0">
-    <div class="p-6 border-b border-slate-100 flex justify-between items-center hidden md:flex">
+    <div class="p-6 border-b border-slate-100 justify-between items-center hidden md:flex">
         <div class="font-bold text-brand-dark text-2xl tracking-tight">SPMB App</div>
     </div>
     

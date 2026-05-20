@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array<int, array<string, string|int>> $pendaftar
+ */
+?>
 <?= $this->extend('layouts/admin_layout') ?>
 
 <?= $this->section('content') ?>
@@ -26,16 +31,22 @@
             </tr>
         </thead>
         <tbody>
-            <?php $no = 1; foreach($pendaftar as $p): ?>
-            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                <td class="px-4 py-3 text-center"><?= $no++ ?></td>
-                <td class="px-4 py-3 font-bold text-brand-dark">#<?= str_pad($p['id'], 4, '0', STR_PAD_LEFT) ?></td>
-                <td class="px-4 py-3 font-bold text-slate-800"><?= esc($p['nama_lengkap']) ?></td>
-                <td class="px-4 py-3"><?= esc($p['no_identitas']) ?></td>
-                <td class="px-4 py-3"><?= esc($p['asal_sekolah']) ?></td>
-                <td class="px-4 py-3 text-center font-bold"><?= esc($p['total_nilai']) ?></td>
-            </tr>
-            <?php endforeach; ?>
+            <?php if(!empty($pendaftar)): ?>
+                <?php $no = 1; foreach($pendaftar as $p): ?>
+                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                    <td class="px-4 py-3 text-center"><?= $no++ ?></td>
+                    <td class="px-4 py-3 font-bold text-brand-dark">#<?= str_pad((string)$p['id'], 4, '0', STR_PAD_LEFT) ?></td>
+                    <td class="px-4 py-3 font-bold text-slate-800"><?= esc((string)$p['nama_lengkap']) ?></td>
+                    <td class="px-4 py-3"><?= esc((string)$p['no_identitas']) ?></td>
+                    <td class="px-4 py-3"><?= esc((string)$p['asal_sekolah']) ?></td>
+                    <td class="px-4 py-3 text-center font-bold"><?= esc((string)$p['total_nilai']) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6" class="px-4 py-8 text-center text-slate-500">Belum ada data pendaftar yang lolos seleksi.</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

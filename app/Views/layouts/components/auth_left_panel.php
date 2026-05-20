@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $pengaturan
+ */
+?>
 <!-- ===================== LEFT PANEL: Branding & Identitas ===================== -->
 <div class="relative lg:w-[48%] xl:w-[45%] bg-gradient-to-br from-[#1D2671] via-[#2D3FAF] to-[#1D2671] flex flex-col items-center justify-center p-8 sm:p-12 lg:p-16 overflow-hidden">
     <div class="absolute inset-0 dot-pattern opacity-60"></div>
@@ -18,8 +23,8 @@
         <div class="relative group">
             <div class="absolute -inset-1 bg-gradient-to-br from-[#F4D000]/30 to-white/10 rounded-2xl blur-sm group-hover:blur-md transition-all duration-500"></div>
             <div class="relative w-24 h-24 sm:w-28 sm:h-28 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center shadow-lg shadow-black/10 overflow-hidden">
-                <?php if (!empty($settings['logo'])): ?>
-                    <img src="<?= base_url('uploads/' . esc($settings['logo'])) ?>" alt="Logo <?= esc($settings['nama_sekolah'] ?? 'Sekolah') ?>" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
+                <?php if (!empty($pengaturan['logo'])): ?>
+                    <img src="<?= base_url('uploads/' . esc((string)$pengaturan['logo'])) ?>" alt="Logo <?= esc((string)($pengaturan['nama_sekolah'] ?? 'Sekolah')) ?>" class="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md">
                 <?php else: ?>
                     <i class="fa-solid fa-school text-4xl sm:text-5xl text-white/90"></i>
                 <?php endif; ?>
@@ -27,12 +32,12 @@
         </div>
         <div class="space-y-3">
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                <?= esc($settings['nama_sekolah'] ?? 'Sistem PPDB Online') ?>
+                <?= esc((string)($pengaturan['nama_sekolah'] ?? 'Sistem PPDB Online')) ?>
             </h1>
             <p class="text-base sm:text-lg text-white/70 leading-relaxed font-light">
                 Sistem Penerimaan Peserta Didik Baru
-                <?php if (!empty($settings['tahun_pelajaran'])): ?>
-                    <br><span class="text-[#F4D000] font-semibold">Tahun Pelajaran <?= esc($settings['tahun_pelajaran']) ?></span>
+                <?php if (!empty($pengaturan['tahun_pelajaran'])): ?>
+                    <br><span class="text-[#F4D000] font-semibold">Tahun Pelajaran <?= esc((string)$pengaturan['tahun_pelajaran']) ?></span>
                 <?php endif; ?>
             </p>
         </div>

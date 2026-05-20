@@ -1,8 +1,13 @@
+<?php
+/**
+ * @var array $pengaturan
+ */
+?>
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
-    <title>Login - <?= esc($settings['nama_sekolah'] ?? 'SPMB') ?></title>
+    <title>Login - <?= esc((string)($pengaturan['nama_sekolah'] ?? 'SPMB')) ?></title>
     <?= $this->include('layouts/components/auth_head') ?>
 </head>
 
@@ -105,7 +110,7 @@
                     </div>
                 </div>
                 <div class="mt-8 text-center">
-                    <p class="text-xs text-[#9CA3AF]">© <?= date('Y') ?> <?= esc($settings['nama_sekolah'] ?? 'SPMB') ?>. Seluruh hak cipta dilindungi.</p>
+                    <p class="text-xs text-[#9CA3AF]">© <?= date('Y') ?> <?= esc((string)($pengaturan['nama_sekolah'] ?? 'SPMB')) ?>. Seluruh hak cipta dilindungi.</p>
                 </div>
             </div>
         </div>

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array $user
+ * @var int|string $progress
+ */
+?>
 <?= $this->extend('layouts/user_layout') ?>
 
 <?= $this->section('content') ?>
@@ -51,7 +57,7 @@
     <?php if($user['status_pendaftaran'] !== 'Belum Dikirim'): ?>
         <div class="text-center p-6 bg-brand-light rounded-2xl max-w-2xl mx-auto border border-brand/20">
             <h3 class="text-xl font-bold text-brand-dark mb-2">Pendaftaran Telah Dikirim!</h3>
-            <p class="text-slate-600">Status saat ini: <span class="font-bold text-brand-dark"><?= esc($user['status_pendaftaran']) ?></span></p>
+            <p class="text-slate-600">Status saat ini: <span class="font-bold text-brand-dark"><?= esc((string)$user['status_pendaftaran']) ?></span></p>
             <p class="text-sm text-slate-500 mt-2">Anda tidak dapat lagi mengubah data. Pantau terus dashboard untuk mengetahui hasil seleksi.</p>
         </div>
     <?php else: ?>

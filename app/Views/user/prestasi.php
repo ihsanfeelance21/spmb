@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $prestasi
+ */
+?>
 <?= $this->extend('layouts/user_layout') ?>
 
 <?= $this->section('content') ?>
@@ -14,7 +19,7 @@
         </button>
     </div>
 
-    <?php if(count($prestasi) > 0): ?>
+    <?php if(!empty($prestasi)): ?>
         <div class="mb-8">
             <h3 class="text-sm font-bold text-slate-700 mb-3">Prestasi Tersimpan:</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -24,8 +29,8 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-800"><?= esc($p['nama_prestasi']) ?></h4>
-                            <p class="text-xs text-slate-500"><?= esc($p['kategori']) ?> &bull; <?= esc($p['tahun']) ?> &bull; <?= esc($p['pelaksana']) ?></p>
+                            <h4 class="font-bold text-slate-800"><?= esc((string)$p['nama_prestasi']) ?></h4>
+                            <p class="text-xs text-slate-500"><?= esc((string)$p['kategori']) ?> &bull; <?= esc((string)$p['tahun']) ?> &bull; <?= esc((string)$p['pelaksana']) ?></p>
                             <?php if(!empty($p['file_sertifikat'])): ?>
                                 <span class="inline-block mt-2 text-xs font-medium bg-emerald-100 text-emerald-700 px-2 py-1 rounded">Sertifikat Diunggah</span>
                             <?php endif; ?>

@@ -22,7 +22,7 @@
         }
         ?>
         <div class="w-10 h-10 <?= session()->get('role') === 'superadmin' ? 'bg-gradient-to-br from-violet-500 to-purple-600' : 'bg-brand' ?> text-white rounded-full flex items-center justify-center font-bold shadow-md">
-            <?= $initials ?>
+            <?= esc($initials) ?>
         </div>
     </div>
 </header>

@@ -6,30 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?? 'Admin Dashboard' ?> - SPMB</title>
 
-    <!-- Tailwind CSS (CDN for dev) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            light: '#e0e7ff',
-                            DEFAULT: '#4f46e5',
-                            dark: '#3730a3'
-                        },
-                        surface: {
-                            light: '#ffffff',
-                            dark: '#f8fafc'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Local Tailwind CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/app.css') ?>">
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -58,14 +36,6 @@
         }
     </style>
 
-    <style type="text/tailwindcss">
-        @layer components {
-            .input-field { @apply w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-brand-light focus:border-brand outline-none transition-shadow text-slate-700 bg-slate-50 focus:bg-white; }
-            .btn-primary { @apply bg-brand text-white px-4 py-2 rounded-lg shadow hover:bg-brand-dark transition-all duration-200 font-medium flex justify-center items-center; }
-            .btn-secondary { @apply bg-slate-200 text-slate-700 px-4 py-2 rounded-lg hover:bg-slate-300 transition-all duration-200 font-medium flex justify-center items-center; }
-            .card { @apply bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden; }
-        }
-    </style>
 </head>
 
 <body class="bg-slate-100 font-sans text-slate-800 antialiased min-h-screen flex flex-col lg:flex-row overflow-x-hidden">

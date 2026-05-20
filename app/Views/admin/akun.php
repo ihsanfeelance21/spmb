@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array $resets
+ * @var array $users
+ */
+?>
 <?= $this->extend('layouts/admin_layout') ?>
 
 <?= $this->section('content') ?>
@@ -22,7 +28,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="md:col-span-2">
                 <label class="block text-sm font-bold text-slate-700 mb-1">Email <span class="text-slate-400 font-normal">(tidak dapat diubah)</span></label>
-                <input type="email" value="<?= esc(session()->get('email')) ?>" class="input-field bg-slate-100 cursor-not-allowed" disabled>
+                <input type="email" value="<?= esc((string)session()->get('email')) ?>" class="input-field bg-slate-100 cursor-not-allowed" disabled>
             </div>
             <div class="md:col-span-2">
                 <label class="block text-sm font-bold text-slate-700 mb-1">Username <span class="text-red-500">*</span></label>
@@ -87,7 +93,7 @@
                     <p class="text-sm text-slate-500 mt-1">Pengguna yang lupa password akan tampil di sini.</p>
                 </div>
                 <div class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-bold">
-                    <?= count($resets) ?> Permintaan
+                    <?= !empty($resets) ? count($resets) : 0 ?> Permintaan
                 </div>
             </div>
         </div>
@@ -102,13 +108,13 @@
                 <?php foreach($resets as $r): ?>
                     <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
                         <div>
-                            <p class="font-bold text-slate-800"><?= esc($r['email']) ?></p>
-                            <p class="text-xs text-slate-500">Diminta pada: <?= date('d M Y H:i', strtotime($r['created_at'])) ?></p>
+                            <p class="font-bold text-slate-800"><?= esc((string)$r['email']) ?></p>
+                            <p class="text-xs text-slate-500">Diminta pada: <?= date('d M Y H:i', strtotime((string)$r['created_at'])) ?></p>
                         </div>
                         <form action="<?= base_url('admin/akun/reset') ?>" method="POST">
                             <?= csrf_field() ?>
-                            <input type="hidden" name="email" value="<?= esc($r['email']) ?>">
-                            <input type="hidden" name="reset_id" value="<?= esc($r['id']) ?>">
+                            <input type="hidden" name="email" value="<?= esc((string)$r['email']) ?>">
+                            <input type="hidden" name="reset_id" value="<?= esc((string)$r['id']) ?>">
                             <button type="submit" onclick="return confirm('Reset password untuk akun ini?')" class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors shadow-sm">
                                 Reset Paksa
                             </button>
@@ -129,12 +135,13 @@
                 <p class="text-sm text-slate-500 mt-1">Kelola akun pengguna, admin, dan superadmin terdaftar.</p>
             </div>
             <div class="bg-brand-light text-brand-dark px-3 py-1 rounded-full text-xs font-bold">
-                <?= count($users) ?> Akun
+                <?= !empty($users) ? count($users) : 0 ?> Akun
             </div>
         </div>
     </div>
 
     <div class="overflow-x-auto">
+        <?php if(!empty($users)): ?>
         <table class="datatable w-full text-sm text-left" id="tableAkun">
             <thead>
                 <tr class="bg-slate-50 text-slate-600 uppercase text-xs tracking-wider">
@@ -151,8 +158,8 @@
                 <?php $no = 1; foreach($users as $u): ?>
                 <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                     <td class="px-4 py-3 font-medium text-slate-600"><?= $no++ ?></td>
-                    <td class="px-4 py-3 font-medium text-slate-800"><?= esc($u['email']) ?></td>
-                    <td class="px-4 py-3 text-slate-600"><?= esc($u['username']) ?></td>
+                    <td class="px-4 py-3 font-medium text-slate-800"><?= esc((string)$u['email']) ?></td>
+                    <td class="px-4 py-3 text-slate-600"><?= esc((string)$u['username']) ?></td>
                     <td class="px-4 py-3">
                         <?php if($u['role'] === 'superadmin'): ?>
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-violet-100 to-purple-100 text-violet-700 border border-violet-200">
@@ -193,9 +200,9 @@
                                 Dilindungi
                             </span>
                         <?php else: ?>
-                            <form action="<?= base_url('admin/akun/delete') ?>" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus akun <?= esc($u['email']) ?>? Data terkait juga akan dihapus.')">
+                            <form action="<?= base_url('admin/akun/delete') ?>" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus akun <?= esc((string)$u['email']) ?>? Data terkait juga akan dihapus.')">
                                 <?= csrf_field() ?>
-                                <input type="hidden" name="id" value="<?= $u['id'] ?>">
+                                <input type="hidden" name="id" value="<?= esc((string)$u['id']) ?>">
                                 <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg text-xs font-bold transition-colors border border-red-200 hover:border-red-300">
                                     <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                     Hapus
@@ -207,6 +214,12 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?php else: ?>
+            <div class="text-center py-10">
+                <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <p class="text-slate-500">Belum ada akun yang terdaftar.</p>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 

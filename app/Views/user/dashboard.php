@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var array $user
+ * @var array $settings
+ * @var int|string $progress
+ */
+?>
 <?= $this->extend('layouts/user_layout') ?>
 
 <?= $this->section('content') ?>
@@ -6,8 +13,8 @@
     <!-- Welcome Card -->
     <div class="card col-span-1 md:col-span-2 p-8 bg-gradient-to-br from-brand to-brand-dark text-white relative overflow-hidden">
         <div class="relative z-10">
-            <h2 class="text-2xl font-bold mb-2">Selamat Datang, <?= esc($user['username']) ?>!</h2>
-            <p class="text-brand-light mb-6">Sistem Penerimaan Murid Baru <?= esc($settings['nama_sekolah'] ?? '') ?> Tahun Ajaran <?= esc($settings['tahun_pelajaran'] ?? '') ?></p>
+            <h2 class="text-2xl font-bold mb-2">Selamat Datang, <?= esc((string)($user['username'] ?? '')) ?>!</h2>
+            <p class="text-brand-light mb-6">Sistem Penerimaan Murid Baru <?= esc((string)($settings['nama_sekolah'] ?? '')) ?> Tahun Ajaran <?= esc((string)($settings['tahun_pelajaran'] ?? '')) ?></p>
             
             <?php if($user['status_pendaftaran'] === 'Belum Dikirim'): ?>
                 <div class="bg-white/20 inline-block px-4 py-2 rounded-lg backdrop-blur-sm border border-white/30">
@@ -66,11 +73,11 @@
             <h3 class="text-xl font-bold text-slate-800">Progres Pengisian Data</h3>
             <p class="text-sm text-slate-500 mt-1">Lengkapi form pendaftaran hingga 100% untuk mengirimkan data.</p>
         </div>
-        <span class="text-3xl font-black text-brand"><?= $progress ?>%</span>
+        <span class="text-3xl font-black text-brand"><?= esc((string)$progress) ?>%</span>
     </div>
     
     <div class="w-full bg-slate-100 rounded-full h-4 mb-8 overflow-hidden border border-slate-200">
-        <div class="bg-gradient-to-r from-brand to-brand-dark h-4 rounded-full transition-all duration-1000 ease-out" style="width: <?= $progress ?>%"></div>
+        <div class="bg-gradient-to-r from-brand to-brand-dark h-4 rounded-full transition-all duration-1000 ease-out" style="width: <?= esc((string)$progress) ?>%"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -84,7 +91,7 @@
         ?>
         <?php foreach($steps as $step): ?>
             <a href="<?= base_url($step['url']) ?>" class="border border-slate-200 rounded-xl p-4 hover:border-brand hover:shadow-md transition-all flex items-center justify-between group bg-slate-50 hover:bg-white">
-                <span class="text-sm font-semibold text-slate-700 group-hover:text-brand"><?= $step['name'] ?></span>
+                <span class="text-sm font-semibold text-slate-700 group-hover:text-brand"><?= esc($step['name']) ?></span>
                 <?php if($step['done']): ?>
                     <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <?php else: ?>
@@ -100,7 +107,7 @@
 <?= $this->section('scripts') ?>
 <script>
     // Countdown Timer Logic
-    const endDate = new Date("<?= esc($settings['tanggal_tutup'] ?? date('Y-m-d', strtotime('+30 days'))) ?>T23:59:59").getTime();
+    const endDate = new Date("<?= esc((string)($settings['tanggal_tutup'] ?? date('Y-m-d', strtotime('+30 days')))) ?>T23:59:59").getTime();
     
     const x = setInterval(function() {
         const now = new Date().getTime();

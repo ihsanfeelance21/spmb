@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var array $settings
+ * @var array<int, array<string, string|int>> $pendaftar
+ */
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -59,8 +65,8 @@
     <div class="header">
         <h1>DAFTAR CALON SISWA LOLOS SELEKSI</h1>
         <p>PENERIMAAN PESERTA DIDIK BARU (PPDB)</p>
-        <p><strong><?= esc($settings['nama_sekolah'] ?? 'SEKOLAH') ?></strong></p>
-        <p>TAHUN PELAJARAN <?= esc($settings['tahun_pelajaran'] ?? '') ?></p>
+        <p><strong><?= esc((string)($settings['nama_sekolah'] ?? 'SEKOLAH')) ?></strong></p>
+        <p>TAHUN PELAJARAN <?= esc((string)($settings['tahun_pelajaran'] ?? '')) ?></p>
     </div>
 
     <table>
@@ -82,10 +88,10 @@
                 <?php $no = 1; foreach($pendaftar as $p): ?>
                 <tr>
                     <td class="text-center"><?= $no++ ?></td>
-                    <td><?= esc($p['nama_lengkap']) ?></td>
-                    <td><?= esc($p['no_identitas']) ?></td>
-                    <td><?= esc($p['asal_sekolah']) ?></td>
-                    <td class="text-center"><?= esc($p['total_nilai']) ?></td>
+                    <td><?= esc((string)$p['nama_lengkap']) ?></td>
+                    <td><?= esc((string)$p['no_identitas']) ?></td>
+                    <td><?= esc((string)$p['asal_sekolah']) ?></td>
+                    <td class="text-center"><?= esc((string)$p['total_nilai']) ?></td>
                 </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
